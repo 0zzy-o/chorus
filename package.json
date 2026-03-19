@@ -1,0 +1,25 @@
+{
+  "name": "mmw",
+  "version": "0.1.0",
+  "description": "Multi-model workflow orchestrator — debate-driven planning with multiple AI CLI tools",
+  "type": "module",
+  "bin": {
+    "mmw": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "cli-table3": "^0.6.5",
+    "commander": "^13.1.0",
+    "ora": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

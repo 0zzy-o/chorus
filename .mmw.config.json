@@ -1,0 +1,16 @@
+{
+  "providers": ["claude", "codex"],
+  "maxRounds": 3,
+  "convergenceThreshold": 0.85,
+  "timeoutMs": 120000,
+  "providerConfig": {
+    "claude": {
+      "command": "claude",
+      "args": ["-p", "{{prompt}}", "--output-format", "text"]
+    },
+    "codex": {
+      "command": "codex",
+      "args": ["exec", "{{prompt}}"]
+    }
+  }
+}
