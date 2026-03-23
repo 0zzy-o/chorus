@@ -26,8 +26,14 @@ export interface DebateResult {
 }
 
 export interface ProviderConfig {
-  command: string;
-  args: string[];
+  mode: "cli" | "api";
+  // CLI mode fields
+  command?: string;
+  args?: string[];
+  // API mode fields
+  apiKey?: string;
+  model?: string;
+  baseUrl?: string;
 }
 
 export interface Config {

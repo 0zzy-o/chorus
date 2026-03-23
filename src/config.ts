@@ -9,10 +9,12 @@ const DEFAULTS: Config = {
   timeoutMs: 120_000,
   providerConfig: {
     claude: {
+      mode: "cli",
       command: "claude",
       args: ["-p", "{{prompt}}", "--output-format", "text"],
     },
     codex: {
+      mode: "cli",
       command: "codex",
       args: ["exec", "{{prompt}}"],
     },

@@ -11,11 +11,17 @@ export abstract class AIProvider {
 
   protected spawn(prompt: string, timeoutMs: number): Promise<string> {
     return new Promise((resolve, reject) => {
-      const args = this.config.args.map((a) =>
+      const args = (this.config.args ?? []).map((a) =>
         a.replace("{{prompt}}", prompt),
       );
 
-      const proc = spawn(this.config.command, args, {
+      const command = this.config.command;
+      if (!command) {
+        reject(new Error(`${this.name}: no command configured for CLI mode`));
+        return;
+      }
+
+      const proc = spawn(command, args, {
         stdio: ["ignore", "pipe", "pipe"],
         env: { ...process.env },
       });

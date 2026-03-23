@@ -27,6 +27,10 @@ program
     "Comma-separated provider names",
     "claude,codex",
   )
+  .option(
+    "-m, --mode <mode>",
+    'Provider mode: "cli" or "api" (applies to all providers unless overridden in config)',
+  )
   .option("-e, --execute", "Execute the plan after approval")
   .option("-v, --verbose", "Show raw model output")
   .option("-c, --config <path>", "Path to config file")
@@ -44,11 +48,28 @@ program
       config.convergenceThreshold = parseFloat(opts.threshold);
     if (opts.providers) config.providers = opts.providers.split(",");
 
+    // Apply mode override to all providers that don't have an explicit mode in config
+    if (opts.mode) {
+      const mode = opts.mode as "cli" | "api";
+      for (const name of config.providers) {
+        if (!config.providerConfig[name]) {
+          config.providerConfig[name] = { mode };
+        } else {
+          config.providerConfig[name] = {
+            ...config.providerConfig[name],
+            mode,
+          };
+        }
+      }
+    }
+
+    const modeLabel = opts.mode ?? "per-config";
+
     console.log(chalk.bold.cyan("\n🤖 Multi-Model Workflow Orchestrator\n"));
     console.log(chalk.dim(`Task: ${task}`));
     console.log(
       chalk.dim(
-        `Providers: ${config.providers.join(", ")} | Max rounds: ${config.maxRounds} | Threshold: ${config.convergenceThreshold}`,
+        `Providers: ${config.providers.join(", ")} | Mode: ${modeLabel} | Max rounds: ${config.maxRounds} | Threshold: ${config.convergenceThreshold}`,
       ),
     );
 
@@ -81,7 +102,6 @@ program
         const edited = await editPlanInEditor(result.finalPlan);
         if (edited) {
           printFinalPlan(edited);
-          // Re-prompt after edit
           const approval2 = await promptApproval();
           if (approval2 === "approve" && opts.execute) {
             await executePlan(edited, providers[0]);
