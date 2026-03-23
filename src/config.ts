@@ -25,8 +25,8 @@ export function loadConfig(configPath?: string): Config {
   const paths = configPath
     ? [configPath]
     : [
-        resolve(process.cwd(), ".mmw.config.json"),
-        resolve(process.cwd(), "mmw.config.json"),
+        resolve(process.cwd(), ".chorus.config.json"),
+        resolve(process.cwd(), "chorus.config.json"),
       ];
 
   for (const p of paths) {

@@ -15,9 +15,9 @@ import type { Plan } from "./types.js";
 const program = new Command();
 
 program
-  .name("mmw")
+  .name("chorus")
   .description(
-    "Multi-model workflow orchestrator — debate-driven planning with AI CLI tools",
+    "Chorus — coordinate multiple AI models through iterative debate",
   )
   .version("0.1.0")
   .argument("<task>", "Task description for the AI models to plan")
@@ -65,7 +65,7 @@ program
 
     const modeLabel = opts.mode ?? "per-config";
 
-    console.log(chalk.bold.cyan("\n🤖 Multi-Model Workflow Orchestrator\n"));
+    console.log(chalk.bold.cyan("\n🎵 Chorus\n"));
     console.log(chalk.dim(`Task: ${task}`));
     console.log(
       chalk.dim(
@@ -129,7 +129,7 @@ program
   });
 
 async function editPlanInEditor(plan: Plan): Promise<Plan | null> {
-  const tmpFile = join(tmpdir(), `mmw-plan-${Date.now()}.json`);
+  const tmpFile = join(tmpdir(), `chorus-plan-${Date.now()}.json`);
   writeFileSync(tmpFile, JSON.stringify(plan, null, 2));
 
   const editor = process.env.EDITOR || "vi";

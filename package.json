@@ -1,10 +1,10 @@
 {
-  "name": "mmw",
+  "name": "chorus",
   "version": "0.1.0",
   "description": "Multi-model workflow orchestrator — debate-driven planning with multiple AI CLI tools",
   "type": "module",
   "bin": {
-    "mmw": "./dist/index.js"
+    "chorus": "./dist/index.js"
   },
   "scripts": {
     "build": "tsc",
