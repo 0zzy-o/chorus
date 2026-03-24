@@ -38,6 +38,7 @@ chorus "add a login page to this app"
 -v, --verbose           Show raw model output
 -c, --config <path>     Path to config file
 -t, --threshold <n>     Convergence threshold 0-1 (default: 0.85)
+-d, --dir <path>        Working directory for providers (default: cwd)
 ```
 
 ### Examples
@@ -57,6 +58,9 @@ chorus --rounds 5 --verbose "migrate from REST to GraphQL"
 
 # Execute the plan after approval
 chorus --execute "add input validation to all endpoints"
+
+# Run against a different project directory
+chorus --dir /path/to/project "add a login page"
 ```
 
 ## Providers

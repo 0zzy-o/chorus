@@ -39,7 +39,18 @@ program
     "Convergence threshold (0-1)",
     "0.85",
   )
+  .option(
+    "-d, --dir <path>",
+    "Working directory for providers (default: current directory)",
+  )
   .action(async (task: string, opts) => {
+    // Change working directory if specified (before config loading)
+    if (opts.dir) {
+      const { resolve } = await import("node:path");
+      const target = resolve(opts.dir);
+      process.chdir(target);
+    }
+
     const config = loadConfig(opts.config);
 
     // Apply CLI overrides
